@@ -1,0 +1,39 @@
+version: '3.3'
+services:
+  app:
+    environment:
+      - CONFIG_PATH = config-local.yml
+    container_name: user_service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+  db:
+    container_name: user_service_database
+    image: postgres:latest
+    networks:
+      new:
+        aliases:
+          - database
+    environment:
+      POSTGRES_DB: road_map
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: qwe
+    ports:
+      - "5432:5432"
+
+  migrate:
+    container_name: user_service_migrations
+    image: migrate/migrate
+    networks:
+      - new
+    volumes:
+      - ./database/migrations:/migrations
+    command: [ "-path", "/migrations", "-database",  "postgres://test_user:qwe@database:5432/road_map?sslmode=disable", "up", "3" ]
+    links:
+      - db
+    depends_on:
+      - db
+networks:
+  new:

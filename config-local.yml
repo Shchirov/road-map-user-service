@@ -7,8 +7,8 @@ app:
     host: localhost
     port: 3333
   db:
-    username: root
-    password: password
+    username: test_user
+    password: qwe
     database: road_map
     host: localhost
     port: 5432

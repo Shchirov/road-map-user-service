@@ -44,7 +44,7 @@ func MustLoad() *Config {
 	once.Do(func() {
 		configPath := fetchConfigPath()
 		if configPath == "" {
-			configPath = "configs/config-local.yml"
+			configPath = "config-local.yml"
 		}
 
 		config = MustLoadPath(configPath)
