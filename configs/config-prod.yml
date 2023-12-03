@@ -1,0 +1,14 @@
+env: prod
+app:
+  http:
+    host: ${HTTP_HOST:localhost}
+    port: ${HTTP_PORT:8080}
+  grpc:
+    host: ${GRPC_HOST:localhost}
+    port: ${GRPC_PORT:3333}
+  db:
+    username: ${POSTGRES_USER:root}
+    password: ${POSTGRES_PASSWORD:password}
+    database: ${POSTGRES_DB:road_map}
+    host: ${POSTGRES_HOST:localhost}
+    port: ${POSTGRES_PORT:5432}

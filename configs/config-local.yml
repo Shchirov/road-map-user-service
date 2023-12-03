@@ -1,0 +1,15 @@
+env: local
+app:
+  http:
+    host: localhost
+    port: 8080
+  grpc:
+    host: localhost
+    port: 3333
+  db:
+    username: root
+    password: password
+    database: road_map
+    host: localhost
+    port: 5432
+
