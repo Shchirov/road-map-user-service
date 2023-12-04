@@ -16,7 +16,6 @@ import (
 type App struct {
 	log          *slog.Logger
 	mux          *runtime.ServeMux
-	conn         *grpc.ClientConn
 	httpListener net.Listener
 	httpConfig   config.HttpConfig
 }
@@ -32,6 +31,10 @@ func New(
 	mux := runtime.NewServeMux()
 
 	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", grpcClientConfig.GrpcHost, grpcClientConfig.GrpcPort), grpc.WithTransportCredentials(insecure.NewCredentials()))
+
+	if err != nil {
+		panic("todo")
+	}
 
 	httpListener, err := net.Listen("tcp", fmt.Sprintf("%s:%d", httpConfig.HttpHost, httpConfig.HttpPort))
 	if err != nil {
@@ -65,6 +68,7 @@ func (a *App) Run() error {
 	a.log.With(slog.String("op", op)).Info("http server started", slog.String("addr", fmt.Sprintf("%s:%d", a.httpConfig.HttpHost, a.httpConfig.HttpPort)))
 
 	if err := http.Serve(a.httpListener, a.mux); err != nil {
+		panic("todo")
 	}
 
 	return nil
